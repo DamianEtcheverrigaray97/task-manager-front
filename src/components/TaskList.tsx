@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useTaskContext } from '../context/TaskContext';
 import { deleteTask, updateTaskCompleted } from '../services/taskService';
 import './taskList.css'
-import { TaskModal } from './TaskModal';
+import { TaskModal } from '../modals/TaskModal';
 import toast from 'react-hot-toast';
+import { ConfirmDeleteModal } from '../modals/ConfirmDeleteModal';
 export const TaskList = () => {
   const { state, dispatch } = useTaskContext();
   const [taskToEdit, setTaskToEdit] = useState<null | { _id: string, title: string, description: string }>(null);
+  const [taskToDelete, setTaskToDelete] = useState<{ _id: string, title: string } | null>(null);
   
   const toggleCompletion = async (id: string) => {
     const task = state.tasks.find((task) => task._id === id);
@@ -27,17 +29,22 @@ export const TaskList = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteTask(id);
-      toast.success('Tarea eliminada con éxito!');
-      dispatch({
-        type: 'DELETE_TASK',
-        payload: id,
-      });
-    } catch (error) {
-      toast.error('Hubo un error al eliminar la tarea.');
-      console.error('Failed to delete task:', error);
+  const handleDelete = async () => {
+    if (taskToDelete) {
+      try {
+        await deleteTask(taskToDelete._id);
+        dispatch({ type: 'DELETE_TASK', payload: taskToDelete._id });
+
+        // Mostrar toast de éxito
+        toast.success(`Tarea "${taskToDelete.title}" eliminada con éxito`);
+
+        setTaskToDelete(null);
+      } catch (err) {
+        console.error('Error deleting task:', err);
+
+        // Mostrar toast de error
+        toast.error('Hubo un error al eliminar la tarea.');
+      }
     }
   };
 
@@ -79,8 +86,8 @@ export const TaskList = () => {
                 ✏️
               </button>
               <button
-                className="delete-button text-red-500 hover:text-red-700"
-                onClick={() => handleDelete(task._id)}
+                onClick={() => setTaskToDelete({ _id: task._id, title: task.title })}
+                className="delete-button text-blue-500 hover:text-blue-700"
               >
                 🗑️
               </button>
@@ -93,6 +100,15 @@ export const TaskList = () => {
         <TaskModal
           onClose={() => setTaskToEdit(null)}
           taskToEdit={taskToEdit}
+        />
+      )}
+
+       {/* Modal de Confirmación */}
+       {taskToDelete && (
+        <ConfirmDeleteModal
+          taskTitle={taskToDelete.title}
+          onCancel={() => setTaskToDelete(null)}
+          onConfirm={handleDelete}
         />
       )}
     </div>

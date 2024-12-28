@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TaskList } from '../components/TaskList';
-import { TaskModal } from '../components/TaskModal';
+import { TaskModal } from '../modals/TaskModal';
 
 export const Home: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
