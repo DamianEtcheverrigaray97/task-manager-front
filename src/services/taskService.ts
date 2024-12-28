@@ -18,10 +18,16 @@ export const createTask = async (task: { title: string }) => {
   return response.data;
 };
 
-export const updateTask = async (id: string, updates: { completed: boolean }) => {
+export const updateTaskCompleted = async (id: string, updates: { completed: boolean }) => {
   const response = await axios.put(`${API_URL + 'tasks'}/${id}`, updates);
   return response.data;
 };
+
+export const updateTask = async (id: string, updates: { title: string, description: string }) => {
+  const response = await axios.put(`${API_URL + 'tasks'}/${id}`, updates);
+  return response.data;
+};
+
 
 export const deleteTask = async (id: string) => {
   const response = await axios.delete(`${API_URL + 'tasks'}/${id}`);
