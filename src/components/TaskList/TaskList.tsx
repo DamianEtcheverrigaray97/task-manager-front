@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useTaskContext } from '../context/TaskContext';
-import { deleteTask, updateTaskCompleted } from '../services/taskService';
+import { useTaskContext } from '../../context/TaskContext';
+import { deleteTask, updateTaskCompleted } from '../../services/taskService';
 import './taskList.css'
-import { TaskModal } from '../modals/TaskModal';
+import { TaskModal } from '../../modals/TaskModal';
 import toast from 'react-hot-toast';
-import { ConfirmDeleteModal } from '../modals/ConfirmDeleteModal';
+import { ConfirmDeleteModal } from '../../modals/ConfirmDeleteModal';
 import { Tooltip } from 'react-tooltip';
-import { TaskViewModal } from '../modals/TaskViewModal';
+import { TaskViewModal } from '../../modals/TaskViewModal';
 
 export const TaskList = () => {
   const { state, dispatch } = useTaskContext();
@@ -61,7 +61,7 @@ export const TaskList = () => {
   };
 
   return (
-    <div className="todo-list-container">
+    <div className="todo-list-container max-h-[500px] overflow-y-auto">
       <div className="task-list">
         {state.tasks.map((task) => (
           <div

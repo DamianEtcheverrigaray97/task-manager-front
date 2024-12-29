@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TaskList } from '../components/TaskList';
+import { TaskList } from '../components/TaskList/TaskList';
 import { TaskModal } from '../modals/TaskModal';
 import { useTaskContext } from '../context/TaskContext';
 import { fetchTasks } from '../services/taskService';
@@ -33,7 +33,7 @@ export const Home: React.FC = () => {
       <div className="flex justify-between items-center mb-5">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-[#c934db] text-white px-4 py-2 rounded m-0"
+          className="bg-blue-500 text-white px-4 py-2 rounded m-0"
         >
           Agregar Tarea
         </button>
