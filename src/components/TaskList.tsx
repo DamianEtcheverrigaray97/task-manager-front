@@ -5,6 +5,8 @@ import './taskList.css'
 import { TaskModal } from '../modals/TaskModal';
 import toast from 'react-hot-toast';
 import { ConfirmDeleteModal } from '../modals/ConfirmDeleteModal';
+import { Tooltip } from 'react-tooltip';
+
 export const TaskList = () => {
   const { state, dispatch } = useTaskContext();
   const [taskToEdit, setTaskToEdit] = useState<null | { _id: string, title: string, description: string }>(null);
@@ -71,26 +73,31 @@ export const TaskList = () => {
                 <h3
                   className={`task-title text-lg font-semibold ${
                     task.completed ? 'line-through text-gray-500' : ''
-                  }`}
+                  } max-w-xs truncate overflow-hidden whitespace-nowrap`}
+                  data-tooltip-id={`tooltip-${task._id}`} 
+                  data-tooltip-content={task.title}
                 >
                   {task.title}
                 </h3>
+                <Tooltip id={`tooltip-${task._id}`} place="top" />
                 <p className="task-date text-sm text-gray-600">
                   {new Date(task.createdAt).toLocaleString()}
                 </p>
               </div>
             </div>
             <div className="task-actions flex space-x-2">
-              <button className="edit-button text-blue-500 hover:text-blue-700"
-              onClick={() => handleEdit(task)}>
-                ✏️
-              </button>
-              <button
-                onClick={() => setTaskToDelete({ _id: task._id, title: task.title })}
-                className="delete-button text-blue-500 hover:text-blue-700"
-              >
-                🗑️
-              </button>
+            <button
+              className="edit-button text-blue-500 hover:text-blue-700 bg-[#ebebeb] p-[6px] rounded-md"
+              onClick={() => handleEdit(task)}
+            >
+              ✏️
+            </button>
+            <button
+              onClick={() => setTaskToDelete({ _id: task._id, title: task.title })}
+              className="delete-button text-red-500 hover:text-red-700 bg-[#ebebeb] p-[6px] rounded-md"
+            >
+              🗑️
+            </button>
             </div>
           </div>
         ))}

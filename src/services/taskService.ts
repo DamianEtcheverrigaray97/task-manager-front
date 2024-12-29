@@ -13,6 +13,7 @@ export const fetchTasks = async (completed?: boolean) => {
   const response = await axios.get(url);
   return response.data;
 };
+
 export const createTask = async (task: { title: string }) => {
   const response = await axios.post(API_URL + 'tasks', task);
   return response.data;
