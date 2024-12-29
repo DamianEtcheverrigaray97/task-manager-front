@@ -9,7 +9,6 @@ export const TaskModal: React.FC<{ onClose: () => void, taskToEdit?: { _id: stri
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
 
-  // Cargar los datos de la tarea a editar si es necesario
   useEffect(() => {
     if (taskToEdit) {
       setTitle(taskToEdit.title);
@@ -29,31 +28,28 @@ export const TaskModal: React.FC<{ onClose: () => void, taskToEdit?: { _id: stri
       const taskData = { title: title.trim(), description: description.trim() };
 
       if (taskToEdit) {
-        // Si estamos editando, actualizamos la tarea
         const updatedTask = await updateTask(taskToEdit._id, taskData);
         dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
 
-        // Mostrar mensaje de éxito
         toast.success('Tarea actualizada con éxito!');
       } else {
-        // Si estamos agregando, creamos una nueva tarea
+
         const createdTask = await createTask(taskData);
         dispatch({ type: 'ADD_TASK', payload: createdTask });
 
-        // Mostrar mensaje de éxito
         toast.success('Tarea agregada con éxito!');
       }
 
       onClose();
-    } catch (err) {
-      console.error('Error creating or updating task:', err);
-      setError('Hubo un error al procesar la tarea.');
-
-      // Mostrar mensaje de error
-      if (taskToEdit) {
-        toast.error('Hubo un error al editar la tarea.');
-      }else{
-        toast.error('Hubo un error al agregar la tarea.');
+    } catch (err: any) {
+      // Si el error tiene la propiedad 'errors', buscamos el mensaje específico
+      if (err?.response?.data?.errors?.length > 0) {
+        const errorMsg = err.response.data.errors[0]?.msg || 'Hubo un error al procesar la tarea.';
+        setError(errorMsg); 
+        toast.error(errorMsg);
+      } else {
+        setError('Hubo un error al procesar la tarea.');
+        toast.error('Hubo un error al procesar la tarea.');
       }
     }
   };

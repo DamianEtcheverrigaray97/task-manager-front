@@ -19,9 +19,9 @@ export const TaskViewModal: React.FC<TaskViewModalProps> = ({ task, onClose }) =
             </span>
 
             {/* Contenido del modal */}
-            <h2 className="text-gray-900 text-2xl font-bold mb-4">{task.title}</h2>
+            <h2 className="text-gray-900 text-2xl font-bold mb-4 break-words">{task.title}</h2>
             {task.description ? (
-                <p className="text-gray-700">{task.description}</p>
+                <p className="text-gray-700 break-words">{task.description}</p>
             ) : (
                 <p className="text-sm text-gray-500 italic">
                 Esta tarea no tiene una descripción disponible.
