@@ -71,6 +71,7 @@
     align-items: center;
   }
   
+  .view-button,
   .edit-button,
   .delete-button {
     border: none;

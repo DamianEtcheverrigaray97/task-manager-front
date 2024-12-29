@@ -6,12 +6,14 @@ import { TaskModal } from '../modals/TaskModal';
 import toast from 'react-hot-toast';
 import { ConfirmDeleteModal } from '../modals/ConfirmDeleteModal';
 import { Tooltip } from 'react-tooltip';
+import { TaskViewModal } from '../modals/TaskViewModal';
 
 export const TaskList = () => {
   const { state, dispatch } = useTaskContext();
   const [taskToEdit, setTaskToEdit] = useState<null | { _id: string, title: string, description: string }>(null);
   const [taskToDelete, setTaskToDelete] = useState<{ _id: string, title: string } | null>(null);
-  
+  const [taskToView, setTaskToView] = useState<{ title: string, description: string } | null>(null); 
+
   const toggleCompletion = async (id: string) => {
     const task = state.tasks.find((task) => task._id === id);
 
@@ -54,6 +56,10 @@ export const TaskList = () => {
     setTaskToEdit(task);
   };
 
+  const handleView = (task: any) => {
+    setTaskToView({ title: task.title, description: task.description });
+  };
+
   return (
     <div className="todo-list-container">
       <div className="task-list">
@@ -86,18 +92,24 @@ export const TaskList = () => {
               </div>
             </div>
             <div className="task-actions flex space-x-2">
-            <button
-              className="edit-button text-blue-500 hover:text-blue-700 bg-[#ebebeb] p-[6px] rounded-md"
-              onClick={() => handleEdit(task)}
-            >
-              ✏️
-            </button>
-            <button
-              onClick={() => setTaskToDelete({ _id: task._id, title: task.title })}
-              className="delete-button text-red-500 hover:text-red-700 bg-[#ebebeb] p-[6px] rounded-md"
-            >
-              🗑️
-            </button>
+              <button
+                className="view-button text-green-500 hover:text-green-700 bg-[#ebebeb] p-[6px] rounded-md"
+                onClick={() => handleView(task)}
+              >
+                👁️
+              </button>
+              <button
+                className="edit-button text-blue-500 hover:text-blue-700 bg-[#ebebeb] p-[6px] rounded-md"
+                onClick={() => handleEdit(task)}
+              >
+                ✏️
+              </button>
+              <button
+                onClick={() => setTaskToDelete({ _id: task._id, title: task.title })}
+                className="delete-button text-red-500 hover:text-red-700 bg-[#ebebeb] p-[6px] rounded-md"
+              >
+                🗑️
+              </button>
             </div>
           </div>
         ))}
@@ -116,6 +128,13 @@ export const TaskList = () => {
           taskTitle={taskToDelete.title}
           onCancel={() => setTaskToDelete(null)}
           onConfirm={handleDelete}
+        />
+      )}
+
+      {taskToView && (
+        <TaskViewModal
+          onClose={() => setTaskToView(null)}
+          task={taskToView}
         />
       )}
     </div>
