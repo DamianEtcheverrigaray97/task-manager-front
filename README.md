@@ -1,54 +1,89 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Task Manager Frontend
 
-Currently, two official plugins are available:
+Task Manager es una aplicación para gestionar tareas, donde puedes agregar, editar, eliminar y marcar como completadas las tareas. Este repositorio contiene el código del frontend, desarrollado en React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Enlace a la aplicación desplegada
 
-## Expanding the ESLint configuration
+Puedes acceder a la aplicación desplegada en el siguiente enlace:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[Task Manager - Aplicación desplegada](https://task-manager-front-ecru.vercel.app/)
 
-- Configure the top-level `parserOptions` property like this:
+## Pasos para instalar y ejecutar el proyecto localmente
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Sigue estos pasos para ejecutar la aplicación en tu máquina local:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. **Clonar el repositorio**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   Si aún no lo has hecho, clona el repositorio en tu máquina:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-=======
-# task-manager-front
->>>>>>> e590dc6adc701a1c36250c08783a5925d582d0ef
+   ```bash
+   git clone https://github.com/tu-usuario/task-manager-front.git
+   ```
+
+2. **Instalar las dependencias**
+
+   Navega al directorio del proyecto y ejecuta el siguiente comando para instalar las dependencias necesarias:
+
+   ```bash
+   cd task-manager-front
+   npm install
+   ```
+
+3. **Ejecutar el proyecto localmente**
+
+   Para ejecutar el proyecto en tu máquina local, utiliza el siguiente comando:
+
+   ```bash
+   npm start
+   ```
+
+   Esto abrirá la aplicación en tu navegador por defecto en la siguiente URL:
+
+   ```
+   http://localhost:3000
+   ```
+
+## Detalles de configuración
+
+1. **Variables de entorno**
+
+   Si necesitas configurar variables de entorno específicas, puedes crear un archivo `.env` en la raíz del proyecto. Ejemplo de archivo `.env`:
+
+   ```plaintext
+   REACT_APP_API_URL=https://api.tu-servidor.com
+   ```
+
+   Asegúrate de reiniciar el servidor de desarrollo (`npm start`) después de agregar o modificar las variables de entorno.
+
+2. **Dependencias importantes**
+
+   El proyecto usa las siguientes tecnologías y dependencias:
+
+   - **React**: Librería de JavaScript para construir la interfaz de usuario.
+   - **Tailwind CSS**: Framework de CSS para diseño y estilo de la interfaz.
+   - **react-hot-toast**: Para mostrar notificaciones de forma interactiva.
+   - **React Context API**: Para el manejo del estado global de las tareas.
+
+## Estructura del proyecto
+
+- `src/`: Contiene todos los archivos fuente de la aplicación.
+  - `components/`: Componentes reutilizables de la interfaz de usuario.
+  - `context/`: Contexto de React para manejar el estado de las tareas.
+  - `pages/`: Páginas principales de la aplicación.
+  - `App.js`: Componente principal de la aplicación.
+  - `index.js`: Punto de entrada de la aplicación.
+
+## Contribuciones
+
+Si deseas contribuir a este proyecto, sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una rama para tu nueva característica o corrección de errores (`git checkout -b feature/nueva-caracteristica`).
+3. Realiza tus cambios y haz un commit de tus cambios (`git commit -am 'Añadir nueva característica'`).
+4. Empuja tus cambios a tu fork (`git push origin feature/nueva-caracteristica`).
+5. Crea un Pull Request para que tus cambios sean revisados e integrados al proyecto principal.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](./LICENSE) para más detalles.
