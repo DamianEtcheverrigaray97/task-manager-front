@@ -48,11 +48,19 @@ Sigue estos pasos para ejecutar la aplicación en tu máquina local:
 
 1. **Variables de entorno**
 
-   Si necesitas configurar variables de entorno específicas, puedes crear un archivo `.env` en la raíz del proyecto. Ejemplo de archivo `.env`:
+   El proyecto utiliza diferentes configuraciones dependiendo del entorno:
 
-   ```plaintext
-   REACT_APP_API_URL=https://api.tu-servidor.com
-   ```
+   - Archivo `.env` (entorno local):
+
+     ```plaintext
+     VITE_API_URL=http://localhost:5000/api/
+     ```
+
+   - Archivo `.env.production` (entorno de producción, para deploy en Vercel):
+
+     ```plaintext
+     VITE_API_URL=https://task-manager-back-2yaa.onrender.com/api/
+     ```
 
    Asegúrate de reiniciar el servidor de desarrollo (`npm start`) después de agregar o modificar las variables de entorno.
 
@@ -64,26 +72,66 @@ Sigue estos pasos para ejecutar la aplicación en tu máquina local:
    - **Tailwind CSS**: Framework de CSS para diseño y estilo de la interfaz.
    - **react-hot-toast**: Para mostrar notificaciones de forma interactiva.
    - **React Context API**: Para el manejo del estado global de las tareas.
+   - **Axios**: Para realizar solicitudes HTTP a la API backend.
 
 ## Estructura del proyecto
 
-- `src/`: Contiene todos los archivos fuente de la aplicación.
-  - `components/`: Componentes reutilizables de la interfaz de usuario.
-  - `context/`: Contexto de React para manejar el estado de las tareas.
-  - `pages/`: Páginas principales de la aplicación.
-  - `App.js`: Componente principal de la aplicación.
-  - `index.js`: Punto de entrada de la aplicación.
+La estructura del proyecto es la siguiente:
 
-## Contribuciones
+```
+task-manager-front/
+│
+├── public/
+│   ├── textures/
+│   │   └── texture-background.jpg
+│   │── favicon-32x32.png
+├── src/
+│   ├── assets/
+│   │   └── react.svg
+│   ├── components/
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   └── TaskList/
+│   │       ├── TaskList.tsx
+│   │       └── TaskList.css
+│   ├── context/
+│   │   └── TaskContext.tsx
+│   ├── modals/
+│   │   ├── ConfirmDeleteModal.tsx
+│   │   ├── TaskModal.tsx
+│   │   └── TaskViewModal.tsx
+│   ├── pages/
+│   │   └── HomePage.tsx
+│   ├── services/
+│   │   └── taskService.ts
+│   ├── utils/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   ├── vite-env.d.ts
+├── .env
+├── .env.production
+├── package.json
+├── README.md
+└── tsconfig.json
+```
 
-Si deseas contribuir a este proyecto, sigue estos pasos:
+### Descripción de carpetas
 
-1. Haz un fork del repositorio.
-2. Crea una rama para tu nueva característica o corrección de errores (`git checkout -b feature/nueva-caracteristica`).
-3. Realiza tus cambios y haz un commit de tus cambios (`git commit -am 'Añadir nueva característica'`).
-4. Empuja tus cambios a tu fork (`git push origin feature/nueva-caracteristica`).
-5. Crea un Pull Request para que tus cambios sean revisados e integrados al proyecto principal.
+- **`components/`**: Contiene los componentes reutilizables de la interfaz de usuario, como `Header` y `TaskList`.
+- **`context/`**: Maneja el estado global de la aplicación mediante el Context API.
+- **`modals/`**: Contiene componentes modales, como formularios de confirmación y vistas de detalle.
+- **`pages/`**: Contiene las páginas principales de la aplicación.
+- **`services/`**: Define funciones para interactuar con la API backend usando Axios.
 
-## Licencia
+## Servicios disponibles
 
-Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](./LICENSE) para más detalles.
+El archivo `taskService.ts` contiene funciones para interactuar con la API:
+
+- `fetchTasks(completed?: boolean)`: Obtener todas las tareas (opcionalmente filtradas por estado de completado).
+- `createTask(task: { title: string })`: Crear una nueva tarea.
+- `updateTaskCompleted(id: string, updates: { completed: boolean })`: Actualizar el estado de completado de una tarea.
+- `updateTask(id: string, updates: { title: string, description: string })`: Actualizar título y descripción de una tarea.
+- `deleteTask(id: string)`: Eliminar una tarea.
+
