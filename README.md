@@ -18,7 +18,7 @@ Sigue estos pasos para ejecutar la aplicación en tu máquina local:
    Si aún no lo has hecho, clona el repositorio en tu máquina:
 
    ```bash
-   git clone https://github.com/tu-usuario/task-manager-front.git
+   git clone https://github.com/DamianEtcheverrigaray97/task-manager-front.git
    ```
 
 2. **Instalar las dependencias**
