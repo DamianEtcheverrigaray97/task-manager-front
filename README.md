@@ -27,7 +27,7 @@ Sigue estos pasos para ejecutar la aplicación en tu máquina local:
 
    ```bash
    cd task-manager-front
-   npm install
+   bun install
    ```
 
 3. **Ejecutar el proyecto localmente**
@@ -35,20 +35,20 @@ Sigue estos pasos para ejecutar la aplicación en tu máquina local:
    Para ejecutar el proyecto en tu máquina local, utiliza el siguiente comando:
 
    ```bash
-   npm start
+   bun run dev
    ```
 
    Esto abrirá la aplicación en tu navegador por defecto en la siguiente URL:
 
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ## Detalles de configuración
 
 1. **Variables de entorno**
 
-   El proyecto utiliza diferentes configuraciones dependiendo del entorno:
+   El proyecto utiliza diferentes configuraciones dependiendo del entorno, debes asegurarte que la url sea la generada por el proyecto de backend, generalmente es por defecto localhost:5000:
 
    - Archivo `.env` (entorno local):
 
